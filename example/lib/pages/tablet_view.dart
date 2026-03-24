@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:adapti_flow/core/responsive/responsive.dart';
+import 'package:adapti_flow/adapti_flow.dart';
 
 class TabletView extends StatelessWidget {
   const TabletView({super.key});

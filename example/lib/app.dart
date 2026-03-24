@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:adapti_flow/core/responsive/responsive.dart';
+import 'package:adapti_flow/adapti_flow.dart';
 import 'package:adapti_flow_example/pages/my_custom_page.dart';
 
 class MyApp extends StatelessWidget {

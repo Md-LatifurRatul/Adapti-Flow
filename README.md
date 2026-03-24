@@ -1,6 +1,6 @@
 <div align="center">
 
-# 📱 AdaptiFlow
+# AdaptiFlow
 
 **A comprehensive zero-dependency Flutter responsive design system with adaptive layouts, design-proportional scaling, and fully customizable breakpoints**
 
@@ -10,155 +10,102 @@
 ![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)
 ![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS%20%7C%20Web%20%7C%20macOS%20%7C%20Windows%20%7C%20Linux-blue?style=flat-square)
 
-[Features](#-features) • [Installation](#-installation) • [Quick Start](#-quick-start) • [Examples](#-real-world-examples) • [Documentation](#-api-reference)
+[Features](#-features) • [Installation](#-installation) • [Quick Start](#-quick-start) • [Examples](#-real-world-examples) • [API Reference](#-api-reference)
 
 </div>
 
 ---
 
-## 📋 Table of Contents
+## Why AdaptiFlow?
 
-- [Why I Built This](#-why-i-built-this)
-- [Features](#-features)
-- [Installation](#-installation)
-- [Quick Start](#-quick-start)
-- [Usage Guide](#-complete-usage-guide)
-  - [Percentage Sizing](#1-percentage-based-sizing)
-  - [Device Detection](#3-device-detection)
-  - [Adaptive Layouts](#4-adaptive-layouts)
-  - [Spacing System](#6-responsive-spacing)
-- [Real-World Examples](#-real-world-examples)
-- [Best Practices](#-best-practices)
-- [API Reference](#-api-reference)
-- [Contributing](#-contributing)
-
----
-
-## 🎯 Why I Built This
-
-> After building multiple Flutter apps, I faced the same frustrating problems repeatedly...
-
-| ❌ Problems | ✅ Solutions |
-|------------|-------------|
+| Problem | AdaptiFlow Solution |
+|---------|-------------------|
 | Overflow errors on different screens | Zero overflow with percentage sizing |
 | MediaQuery code everywhere | Clean context extensions |
 | Hardcoded pixels breaking layouts | Adaptive responsive values |
 | Different layouts for each device | Single codebase, auto-adapts |
-| Inconsistent UI across platforms | Perfect on all platforms |
-
-**So I built this system, and now I'm sharing it with you.**
-
----
-
-## ✨ Features
-
-### 🎨 Percentage-Based Sizing
-
-```dart
-Container(
-  width: context.wp(80),   // 80% of screen width
-  height: context.hp(30),  // 30% of screen height
-)
-```
-
-### 📱 Automatic Device Detection
-
-```dart
-if (context.isMobile) {
-  // Phone layout
-} else if (context.isTablet) {
-  // Tablet layout  
-} else {
-  // Desktop layout
-}
-```
-
-### 🎯 Smart Adaptive Values
-
-```dart
-padding: EdgeInsets.all(context.adaptivePadding)
-// Mobile: 16px | Tablet: 24px | Desktop: 32px
-```
-
-### 🚀 Zero Overflow Errors
-
-```dart
-SafeMobileLayout(
-  child: YourContent(), // Handles everything!
-)
-```
-
-### 🧠 Intelligent Spacing
-
-```dart
-Column(children: [
-  Widget1(),
-  const ResponsiveSpacer(), // Auto vertical
-  Widget2(),
-])
-```
+| Inconsistent UI across platforms | Perfect on all 6 platforms |
+| No customizable breakpoints | Fully configurable via InheritedWidget |
 
 ---
 
-## 📦 Installation
+## Features
 
-### Step 1: Add to pubspec.yaml
+- **Percentage-Based Sizing** — `context.wp(80)`, `context.hp(30)`
+- **Design-Proportional Scaling** — `context.w()`, `context.h()`, `context.r()`, `context.sp()` (flutter_screenutil alternative)
+- **Device Detection** — `context.isMobile`, `context.isTablet`, `context.isDesktop`, `context.deviceType`
+- **Adaptive Values** — `context.adaptivePadding`, `context.adaptiveMargin`, `context.adaptiveSpacing`
+- **Customizable Config** — `AdaptiFlow` InheritedWidget with `AdaptiFlowData` for breakpoints, scale factors, design size
+- **Layout Widgets** — `ResponsiveLayout`, `ResponsiveLayoutBuilder`, `SafeResponsiveLayout`
+- **Utility Widgets** — `ResponsiveText`, `ResponsiveGrid`, `ResponsivePadding`, `ResponsiveVisibility`
+- **Spacer System** — `ResponsiveSpacer` with auto-direction detection
+- **Widget Constraints** — `.constrained()`, `.adaptiveConstrained()` extensions
+- **Zero Dependencies** — Pure Flutter, works on iOS, Android, Web, macOS, Windows, Linux
+
+---
+
+## Installation
+
+Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
   adapti_flow: ^1.0.0
 ```
 
-### Step 2: Install
+Then run:
 
 ```bash
 flutter pub get
 ```
 
-### Step 3: Import
+Import:
 
 ```dart
 import 'package:adapti_flow/adapti_flow.dart';
 ```
 
-**Zero external dependencies!** Pure Flutter.
-
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ```dart
 import 'package:flutter/material.dart';
 import 'package:adapti_flow/adapti_flow.dart';
 
+// 1. Wrap your app (optional — works with zero config)
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return AdaptiFlow(
+      data: const AdaptiFlowData(), // all defaults, or customize any field
+      child: MaterialApp(home: HomePage()),
+    );
+  }
+}
+
+// 2. Use anywhere via context extensions
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeMobileLayout(
+      body: SafeResponsiveLayout(
         padding: EdgeInsets.all(context.adaptivePadding),
         child: Column(
           children: [
             Container(
-              width: context.wp(90),
-              height: context.hp(25),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(12),
-              ),
+              width: context.wp(90),   // 90% of screen width
+              height: context.hp(25),  // 25% of screen height
+              color: Colors.blue,
               child: Center(
-                child: Text(
+                child: ResponsiveText(
                   'Perfect on All Devices!',
-                  style: TextStyle(
-                    fontSize: context.fontSize(18),
-                    color: Colors.white,
-                  ),
+                  baseFontSize: 18,
+                  style: const TextStyle(color: Colors.white),
                 ),
               ),
             ),
-            
-            const ResponsiveSpacer(),
-            
+            Spacers.s16,  // 16px auto-direction spacer
             Text(
               'This looks great everywhere',
               style: TextStyle(fontSize: context.fontSize(16)),
@@ -173,95 +120,120 @@ class HomePage extends StatelessWidget {
 
 ---
 
-## 📖 Complete Usage Guide
+## Complete Usage Guide
 
-### 1. Percentage-Based Sizing
+### 1. Configuration (Optional)
+
+Wrap your app with `AdaptiFlow` to customize any default value:
 
 ```dart
-// Width percentage
-Container(width: context.wp(50))  // 50% width
-Container(width: context.wp(80))  // 80% width
-Container(width: context.wp(100)) // Full width
+AdaptiFlow(
+  data: AdaptiFlowData(
+    // Custom breakpoints
+    mobileBreakpoint: 500,
+    desktopBreakpoint: 1024,
+    widescreenBreakpoint: 1920,
 
-// Height percentage
-Container(height: context.hp(20)) // 20% height
-Container(height: context.hp(50)) // 50% height
+    // Design reference size (for w/h/r/sp scaling)
+    designSize: Size(390, 844),  // Your Figma/design mockup size
 
-// Safe area (excludes notches/bars)
+    // Scale factors
+    tabletScaleFactor: 1.2,
+    desktopScaleFactor: 1.5,
+
+    // Font scale factors
+    tabletFontScale: 1.15,
+    desktopFontScale: 1.3,
+
+    // Adaptive values
+    mobilePadding: 16,
+    tabletPadding: 24,
+    desktopPadding: 32,
+  ),
+  child: MaterialApp(...),
+)
+```
+
+**Zero config works too** — all values have sensible defaults. `AdaptiFlow.of(context)` returns defaults when no wrapper is in the tree.
+
+### 2. Percentage-Based Sizing
+
+```dart
+Container(width: context.wp(50))   // 50% of screen width
+Container(height: context.hp(20))  // 20% of screen height
+
+// Safe area (excludes notches/status bars)
 Container(height: context.shp(50)) // 50% of safe height
 Container(width: context.swp(90))  // 90% of safe width
 ```
 
-**Why it works:**
-- 400px screen: `wp(50)` = 200px
-- 800px screen: `wp(50)` = 400px
-- 1920px screen: `wp(50)` = 960px
+### 3. Design-Proportional Scaling
 
-### 2. Screen Dimensions
+Scale values proportionally to a design reference size — like flutter_screenutil but built-in:
 
 ```dart
-// Full dimensions
-final width = context.screenWidth;
-final height = context.screenHeight;
+// If your design mockup is 375px wide and you set a widget to 100px:
+context.w(100)  // Scales proportionally to actual screen width
 
-// Safe area
-final safeHeight = context.safeHeight;
-final safeWidth = context.safeWidth;
+context.h(50)   // Scales proportionally to actual screen height
 
-// Safe area padding
-final topPadding = context.topPadding;
-final bottomPadding = context.bottomPadding;
+context.r(24)   // Uniform scaling using min(widthRatio, heightRatio)
+                // Great for icons, avatars, border radius
 
-// Keyboard
-final keyboardHeight = context.keyboardHeight;
-bool isKeyboardOpen = context.isKeyboardVisible;
+// Font scaling with optional min/max clamp
+context.sp(16)                      // Proportional font size
+context.sp(16, min: 12, max: 24)    // Clamped between 12-24px
 ```
 
-### 3. Device Detection
+### 4. Device Detection
 
 ```dart
-// Device type
-if (context.isMobile) {     // < 600px
-  // Mobile layout
-}
+// Boolean checks
+if (context.isMobile) { }     // < 600px (configurable)
+if (context.isTablet) { }     // 600px - 1200px
+if (context.isDesktop) { }    // >= 1200px
+if (context.isWidescreen) { } // >= 1920px
 
-if (context.isTablet) {     // 600px - 1200px
-  // Tablet layout
-}
-
-if (context.isDesktop) {    // >= 1200px
-  // Desktop layout
-}
-
-if (context.isWidescreen) { // >= 1920px
-  // Widescreen layout
+// Enum-based (type-safe)
+switch (context.deviceType) {
+  case DeviceType.mobile:     // ...
+  case DeviceType.tablet:     // ...
+  case DeviceType.desktop:    // ...
+  case DeviceType.widescreen: // ...
 }
 
 // Orientation
-if (context.isPortrait) {
-  // Portrait layout
-}
-
-if (context.isLandscape) {
-  // Landscape layout
-}
+if (context.isPortrait) { }
+if (context.isLandscape) { }
 ```
 
-### 4. Adaptive Layouts
+### 5. Responsive Layout
 
 ```dart
+// Switch entire layouts per device type
 ResponsiveLayout(
   mobile: MobileHomePage(),
-  tablet: TabletHomePage(),
-  desktop: DesktopHomePage(),
-  widescreen: WidescreenHomePage(), // Optional
+  tablet: TabletHomePage(),     // Falls back to mobile if null
+  desktop: DesktopHomePage(),   // Falls back to tablet if null
+  widescreen: WidescreenPage(), // Falls back to desktop if null
+)
+
+// Builder with DeviceType + constraints
+ResponsiveLayoutBuilder(
+  builder: (context, constraints, deviceType) {
+    return switch (deviceType) {
+      DeviceType.mobile => MobileView(),
+      DeviceType.tablet => TabletView(),
+      _ => DesktopView(),
+    };
+  },
 )
 ```
 
-### 5. Adaptive Values
+### 6. Adaptive Values
 
 ```dart
-// Auto-scaling constants
+// Auto-scaling per device type (configurable)
 padding: EdgeInsets.all(context.adaptivePadding)
 // Mobile: 16px, Tablet: 24px, Desktop: 32px
 
@@ -271,82 +243,158 @@ margin: EdgeInsets.all(context.adaptiveMargin)
 SizedBox(height: context.adaptiveSpacing)
 // Mobile: 8px, Tablet: 12px, Desktop: 16px
 
-// Font scaling
-Text(
-  'Title',
-  style: TextStyle(fontSize: context.fontSize(18)),
-)
+// Font scaling (breakpoint-based)
+TextStyle(fontSize: context.fontSize(18))
 // Mobile: 18, Tablet: 20.7, Desktop: 23.4
 
-// Custom scaling
+// General scaling
 double size = context.scale(16);
 // Mobile: 16, Tablet: 19.2, Desktop: 24
 ```
 
-### 6. Responsive Spacing
+### 7. ResponsiveText
+
+Auto-scaling text without manual `context.fontSize()` on every `TextStyle`:
 
 ```dart
-// Auto-direction spacing
-Column(
-  children: [
-    Text('Item 1'),
-    const ResponsiveSpacer(),        // 16px vertical
-    Text('Item 2'),
-    const ResponsiveSpacer(size: 24), // 24px vertical
-  ],
+// Breakpoint-based scaling (default)
+ResponsiveText('Hello', baseFontSize: 16)
+
+// Design-proportional scaling
+ResponsiveText('Hello', baseFontSize: 16, useDesignScale: true)
+
+// With min/max bounds
+ResponsiveText(
+  'Hello',
+  baseFontSize: 16,
+  minFontSize: 12,
+  maxFontSize: 24,
+  style: TextStyle(fontWeight: FontWeight.bold),
+  maxLines: 2,
+  overflow: TextOverflow.ellipsis,
 )
-
-Row(
-  children: [
-    Icon(Icons.star),
-    const ResponsiveSpacer(),        // 16px horizontal
-    Text('Rating'),
-  ],
-)
-
-// Predefined spacers
-Spacers.vertical8    // 8px
-Spacers.vertical16   // 16px
-Spacers.vertical24   // 24px
-Spacers.horizontal8  // 8px
-Spacers.horizontal16 // 16px
-
-// Quick methods
-Spacers.v(12)  // 12px vertical
-Spacers.h(20)  // 20px horizontal
 ```
 
-### 7. Safe Mobile Layout
+### 8. ResponsiveVisibility
+
+Show or hide widgets based on device type:
 
 ```dart
-SafeMobileLayout(
+// Only visible on mobile
+ResponsiveVisibility.mobileOnly(child: BottomNavBar())
+
+// Only visible on desktop/widescreen
+ResponsiveVisibility.desktopOnly(child: SidePanel())
+
+// Hidden on mobile, visible elsewhere
+ResponsiveVisibility.hideOnMobile(child: DetailedStats())
+
+// Custom visibility rules
+ResponsiveVisibility(
+  visibleOn: {DeviceType.tablet, DeviceType.desktop},
+  child: TabletDesktopWidget(),
+)
+
+// Custom replacement when hidden
+ResponsiveVisibility(
+  hiddenOn: {DeviceType.mobile},
+  replacement: CompactVersion(),
+  child: FullVersion(),
+)
+```
+
+### 9. ResponsiveGrid
+
+Auto-adjusting column count per breakpoint:
+
+```dart
+ResponsiveGrid(
+  mobileColumns: 2,
+  tabletColumns: 3,
+  desktopColumns: 4,
+  widescreenColumns: 5,
+  spacing: 16,
+  runSpacing: 16,
+  childAspectRatio: 0.75,
+  children: products.map((p) => ProductCard(product: p)).toList(),
+)
+```
+
+### 10. ResponsivePadding
+
+Eliminates repetitive `EdgeInsets.all(context.adaptivePadding)`:
+
+```dart
+// Auto-adaptive (uses config values)
+ResponsivePadding.adaptive(child: YourContent())
+
+// Custom per-breakpoint
+ResponsivePadding(
+  mobilePadding: EdgeInsets.all(16),
+  tabletPadding: EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+  desktopPadding: EdgeInsets.symmetric(horizontal: 64, vertical: 32),
+  child: YourContent(),
+)
+```
+
+### 11. Spacing System
+
+```dart
+// Auto-direction spacer (detects Row/Column parent)
+Column(children: [
+  Text('Item 1'),
+  const ResponsiveSpacer(),         // 16px vertical (auto-detected)
+  Text('Item 2'),
+  const ResponsiveSpacer(size: 24), // 24px vertical
+])
+
+Row(children: [
+  Icon(Icons.star),
+  const ResponsiveSpacer(),         // 16px horizontal (auto-detected)
+  Text('Rating'),
+])
+
+// Predefined const spacers
+Spacers.s4    // 4px
+Spacers.s8    // 8px
+Spacers.s12   // 12px
+Spacers.s16   // 16px
+Spacers.s24   // 24px
+Spacers.s32   // 32px
+Spacers.s48   // 48px
+
+// Custom size
+Spacers.of(20)  // 20px
+```
+
+### 12. SafeResponsiveLayout
+
+Safe layout wrapper for all devices — handles notches, keyboard, scrolling:
+
+```dart
+SafeResponsiveLayout(
   padding: EdgeInsets.all(16),
   child: YourContent(),
 )
 ```
 
-**Handles:**
-- ✅ Device notches
-- ✅ Status bar
-- ✅ Bottom navigation
-- ✅ Keyboard overlay
-- ✅ Content scrolling
+**Handles:** device notches, status bar, bottom navigation, keyboard overlay, content scrolling.
 
-**Advanced:**
+**Advanced options:**
 
 ```dart
-SafeMobileLayout(
-  padding: EdgeInsets.symmetric(
-    horizontal: context.wp(5),
-    vertical: 16,
-  ),
+SafeResponsiveLayout(
+  padding: EdgeInsets.symmetric(horizontal: context.wp(5)),
   maintainBottomViewPadding: true,
   enableScroll: true,
+  maxWidth: 800,                          // Optional max width constraint
+  maxHeight: 600,                         // Optional max height constraint
+  physics: const BouncingScrollPhysics(), // Custom scroll physics
   child: YourContent(),
 )
 ```
 
-### 8. Responsive Values
+### 13. Responsive Values
 
 ```dart
 // Function-based
@@ -359,16 +407,12 @@ final columns = responsiveValue(
 );
 
 // Class-based (reusable)
-final gridColumns = ResponsiveValue<int>(
+const gridColumns = ResponsiveValue<int>(
   mobile: 2,
   tablet: 3,
   desktop: 4,
 );
-
-GridView.count(
-  crossAxisCount: gridColumns.getValue(context),
-  children: [...],
-)
+GridView.count(crossAxisCount: gridColumns.of(context))
 
 // Orientation-based
 final padding = orientationValue(
@@ -378,51 +422,40 @@ final padding = orientationValue(
 );
 ```
 
-### 9. Constraint Widgets
+### 14. Widget Constraints
 
 ```dart
-// Max width
+// Max width (prevents stretching on large screens)
 YourWidget().constrained(maxWidth: 800)
 
 // Max width and height
-YourWidget().constrainedBoth(
-  maxWidth: 800,
-  maxHeight: 600,
-)
+YourWidget().constrainedBoth(maxWidth: 800, maxHeight: 600)
 
-// Adaptive constraint
+// Adaptive constraint (uses config values)
 YourWidget().adaptiveConstrained(context)
-// Mobile: no constraint
-// Tablet: max 900px
-// Desktop: max 1200px
+// Mobile: no constraint, Tablet: max 900px, Desktop: max 1200px
 ```
 
 ---
 
-## 🎯 Real-World Examples
+## Real-World Examples
 
 <details>
-<summary><b>📱 Login Screen</b></summary>
+<summary><b>Login Screen</b></summary>
 
 ```dart
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeMobileLayout(
+      body: SafeResponsiveLayout(
         padding: EdgeInsets.symmetric(horizontal: context.wp(5)),
+        maxWidth: 500,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Logo
-            Image.asset(
-              'assets/logo.png',
-              height: context.hp(15),
-            ),
-            
-            Spacers.vertical32,
-            
-            // Email field
+            Image.asset('assets/logo.png', height: context.hp(15)),
+            Spacers.s32,
             TextField(
               style: TextStyle(fontSize: context.fontSize(16)),
               decoration: InputDecoration(
@@ -431,42 +464,21 @@ class LoginScreen extends StatelessWidget {
                   horizontal: context.scale(16),
                   vertical: context.scale(12),
                 ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
               ),
             ),
-            
-            Spacers.vertical16,
-            
-            // Password field
+            Spacers.s16,
             TextField(
               obscureText: true,
               style: TextStyle(fontSize: context.fontSize(16)),
-              decoration: InputDecoration(
-                labelText: 'Password',
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: context.scale(16),
-                  vertical: context.scale(12),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
+              decoration: const InputDecoration(labelText: 'Password'),
             ),
-            
-            Spacers.vertical32,
-            
-            // Login button
+            Spacers.s32,
             SizedBox(
               width: double.infinity,
               height: context.hp(6),
               child: ElevatedButton(
                 onPressed: () {},
-                child: Text(
-                  'Login',
-                  style: TextStyle(fontSize: context.fontSize(16)),
-                ),
+                child: const ResponsiveText('Login', baseFontSize: 16),
               ),
             ),
           ],
@@ -480,7 +492,7 @@ class LoginScreen extends StatelessWidget {
 </details>
 
 <details>
-<summary><b>🛍️ Product Grid</b></summary>
+<summary><b>Product Grid</b></summary>
 
 ```dart
 class ProductGrid extends StatelessWidget {
@@ -488,24 +500,16 @@ class ProductGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
+    return ResponsiveGrid(
+      mobileColumns: 2,
+      tabletColumns: 3,
+      desktopColumns: 4,
+      widescreenColumns: 5,
+      spacing: context.adaptiveSpacing,
+      runSpacing: context.adaptiveSpacing,
+      childAspectRatio: 0.75,
       padding: EdgeInsets.all(context.adaptivePadding),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: responsiveValue(
-          context,
-          mobile: 2,
-          tablet: 3,
-          desktop: 4,
-          widescreen: 5,
-        ),
-        crossAxisSpacing: context.adaptiveSpacing,
-        mainAxisSpacing: context.adaptiveSpacing,
-        childAspectRatio: 0.75,
-      ),
-      itemCount: products.length,
-      itemBuilder: (context, index) {
-        return ProductCard(product: products[index]);
-      },
+      children: products.map((p) => ProductCard(product: p)).toList(),
     );
   }
 }
@@ -514,129 +518,30 @@ class ProductGrid extends StatelessWidget {
 </details>
 
 <details>
-<summary><b>📊 Dashboard</b></summary>
+<summary><b>Dashboard with Sidebar</b></summary>
 
 ```dart
 class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Dashboard')),
-      body: ResponsiveLayout(
-        // Mobile: Vertical list
-        mobile: SingleChildScrollView(
-          padding: EdgeInsets.all(context.adaptivePadding),
-          child: Column(
-            children: [
-              _StatCard(title: 'Users', value: '1,234'),
-              Spacers.vertical16,
-              _StatCard(title: 'Revenue', value: '\$45K'),
-              Spacers.vertical16,
-              _StatCard(title: 'Orders', value: '567'),
-            ],
+      body: Row(
+        children: [
+          // Sidebar — only on desktop
+          ResponsiveVisibility.desktopOnly(
+            child: SizedBox(width: 250, child: SideMenu()),
           ),
-        ),
-        
-        // Tablet: 2-column grid
-        tablet: GridView.count(
-          crossAxisCount: 2,
-          padding: EdgeInsets.all(context.adaptivePadding),
-          mainAxisSpacing: context.adaptiveSpacing,
-          crossAxisSpacing: context.adaptiveSpacing,
-          children: [
-            _StatCard(title: 'Users', value: '1,234'),
-            _StatCard(title: 'Revenue', value: '\$45K'),
-            _StatCard(title: 'Orders', value: '567'),
-            _StatCard(title: 'Products', value: '89'),
-          ],
-        ),
-        
-        // Desktop: Horizontal cards
-        desktop: Padding(
-          padding: EdgeInsets.all(context.adaptivePadding),
-          child: Row(
-            children: [
-              Expanded(child: _StatCard(title: 'Users', value: '1,234')),
-              Spacers.horizontal16,
-              Expanded(child: _StatCard(title: 'Revenue', value: '\$45K')),
-              Spacers.horizontal16,
-              Expanded(child: _StatCard(title: 'Orders', value: '567')),
-              Spacers.horizontal16,
-              Expanded(child: _StatCard(title: 'Products', value: '89')),
-            ],
-          ),
-        ).constrained(maxWidth: 1400),
-      ),
-    );
-  }
-}
-```
-
-</details>
-
-<details>
-<summary><b>👤 Profile Page</b></summary>
-
-```dart
-class ProfilePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeMobileLayout(
-        child: Column(
-          children: [
-            // Header with gradient
-            Container(
-              height: context.hp(30),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.blue, Colors.purple],
-                ),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: context.scale(50),
-                    backgroundImage: NetworkImage('avatar_url'),
-                  ),
-                  Spacers.vertical12,
-                  Text(
-                    'John Doe',
-                    style: TextStyle(
-                      fontSize: context.fontSize(24),
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
+          // Main content
+          Expanded(
+            child: ResponsivePadding.adaptive(
+              child: ResponsiveLayout(
+                mobile: _MobileDashboard(),
+                tablet: _TabletDashboard(),
+                desktop: _DesktopDashboard(),
               ),
             ),
-            
-            // Content section
-            Expanded(
-              child: ListView(
-                padding: EdgeInsets.all(context.adaptivePadding),
-                children: [
-                  _buildInfoCard(
-                    context,
-                    icon: Icons.email,
-                    title: 'Email',
-                    value: 'john@example.com',
-                  ),
-                  Spacers.vertical12,
-                  _buildInfoCard(
-                    context,
-                    icon: Icons.phone,
-                    title: 'Phone',
-                    value: '+1 234 567 890',
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -647,156 +552,81 @@ class ProfilePage extends StatelessWidget {
 
 ---
 
-## ✅ Best Practices
+## Breakpoint Reference
 
-### DO's ✅
+| Device | Width Range | Check | Enum |
+|--------|-------------|-------|------|
+| Mobile | < 600px | `context.isMobile` | `DeviceType.mobile` |
+| Tablet | 600px - 1200px | `context.isTablet` | `DeviceType.tablet` |
+| Desktop | 1200px - 1920px | `context.isDesktop` | `DeviceType.desktop` |
+| Widescreen | >= 1920px | `context.isWidescreen` | `DeviceType.widescreen` |
 
-```dart
-// ✅ Use percentage sizing
-Container(width: context.wp(80), height: context.hp(30))
-
-// ✅ Use adaptive constants
-padding: EdgeInsets.all(context.adaptivePadding)
-
-// ✅ Wrap in SafeMobileLayout
-SafeMobileLayout(child: YourContent())
-
-// ✅ Use ResponsiveSpacer
-const ResponsiveSpacer()
-
-// ✅ Constrain wide content
-Content().constrained(maxWidth: 1200)
-
-// ✅ Use fontSize() for text
-TextStyle(fontSize: context.fontSize(16))
-```
-
-### DON'Ts ❌
+**All breakpoints are customizable** via `AdaptiFlowData`:
 
 ```dart
-// ❌ Don't use fixed pixels
-Container(width: 200)
-
-// ❌ Don't use MediaQuery directly
-MediaQuery.of(context).size.width
-
-// ❌ Don't forget SafeArea
-Column(children: [...])
-
-// ❌ Don't ignore keyboard
-TextField() // May be covered by keyboard
-```
-
----
-
-## 🎯 Common Use Cases
-
-### E-commerce App
-
-```dart
-GridView(
-  crossAxisCount: responsiveValue(
-    context,
-    mobile: 2,
-    tablet: 3,
-    desktop: 4,
+AdaptiFlow(
+  data: AdaptiFlowData(
+    mobileBreakpoint: 500,
+    desktopBreakpoint: 1024,
+    widescreenBreakpoint: 1920,
   ),
-)
-```
-
-### Social Media Feed
-
-```dart
-SafeMobileLayout(
-  child: ListView.builder(
-    itemBuilder: (context, index) {
-      return Post().constrained(maxWidth: 600);
-    },
-  ),
-)
-```
-
-### Form Input
-
-```dart
-SafeMobileLayout(
-  padding: EdgeInsets.symmetric(horizontal: context.wp(5)),
-  child: Column(
-    children: [
-      TextField(
-        style: TextStyle(fontSize: context.fontSize(16)),
-      ),
-      Spacers.vertical16,
-      // More fields...
-    ],
-  ),
+  child: MaterialApp(...),
 )
 ```
 
 ---
 
-## 📊 Breakpoint Reference
-
-| Device | Width Range | Variable |
-|--------|-------------|----------|
-| Mobile | < 600px | `context.isMobile` |
-| Tablet | 600px - 1200px | `context.isTablet` |
-| Desktop | 1200px - 1920px | `context.isDesktop` |
-| Widescreen | >= 1920px | `context.isWidescreen` |
-
-**Customize in `breakpoints.dart`:**
-
-```dart
-class Breakpoints {
-  static const double mobile = 600;
-  static const double tablet = 900;
-  static const double desktop = 1200;
-  static const double widescreen = 1920;
-}
-```
-
----
-
-## 📚 API Reference
+## API Reference
 
 <details>
 <summary><b>Context Extensions</b></summary>
 
 ```dart
 // Screen dimensions
-context.screenWidth
-context.screenHeight
-context.safeWidth
-context.safeHeight
+context.screenWidth           // Full screen width
+context.screenHeight          // Full screen height
+context.safeWidth             // Width minus side padding
+context.safeHeight            // Height minus top/bottom padding
 
 // Percentage sizing
-context.wp(percent)   // Width percentage
-context.hp(percent)   // Height percentage
-context.shp(percent)  // Safe height percentage
-context.swp(percent)  // Safe width percentage
+context.wp(percent)           // Width percentage
+context.hp(percent)           // Height percentage
+context.shp(percent)          // Safe height percentage
+context.swp(percent)          // Safe width percentage
+
+// Design-proportional scaling
+context.w(value)              // Scale by width ratio to designSize
+context.h(value)              // Scale by height ratio to designSize
+context.r(value)              // Scale by min(width, height) ratio
+context.sp(size, {min, max})  // Proportional font with clamp
 
 // Device detection
-context.isMobile
-context.isTablet
-context.isDesktop
-context.isWidescreen
-context.isPortrait
-context.isLandscape
+context.deviceType            // DeviceType enum
+context.isMobile              // < mobileBreakpoint
+context.isTablet              // >= mobileBreakpoint && < desktopBreakpoint
+context.isDesktop             // >= desktopBreakpoint
+context.isWidescreen          // >= widescreenBreakpoint
+context.isPortrait            // Portrait orientation
+context.isLandscape           // Landscape orientation
 
-// Scaling
-context.scale(value)
-context.fontSize(size)
+// Responsive scaling
+context.scale(value)          // Mobile: 1x, Tablet: 1.2x, Desktop: 1.5x
+context.fontSize(size)        // Mobile: 1x, Tablet: 1.15x, Desktop: 1.3x
 
 // Adaptive values
-context.adaptivePadding
-context.adaptiveMargin
-context.adaptiveSpacing
+context.adaptivePadding       // Mobile: 16, Tablet: 24, Desktop: 32
+context.adaptiveMargin        // Mobile: 12, Tablet: 16, Desktop: 24
+context.adaptiveSpacing       // Mobile: 8, Tablet: 12, Desktop: 16
 
-// Safe area
-context.topPadding
-context.bottomPadding
-context.keyboardHeight
-context.isKeyboardVisible
+// Safe area info
+context.topPadding            // Status bar / notch height
+context.bottomPadding         // Bottom navigation height
+context.keyboardHeight        // Keyboard height (0 on desktop)
+context.isKeyboardVisible     // true when soft keyboard is open
+
+// Text scale
+context.textScaleFactor       // System text scale factor
+context.textSize(size)        // size * textScaleFactor
 ```
 
 </details>
@@ -805,139 +635,135 @@ context.isKeyboardVisible
 <summary><b>Widgets</b></summary>
 
 ```dart
-// Layouts
-ResponsiveLayout(
-  mobile: Widget,
-  tablet: Widget?,
-  desktop: Widget?,
-  widescreen: Widget?,
-)
+// Layout switching
+ResponsiveLayout(mobile: Widget, tablet: Widget?, desktop: Widget?, widescreen: Widget?)
 
-ResponsiveBuilder(
-  builder: (context, constraints) => Widget,
-)
+// Layout builder with DeviceType
+ResponsiveLayoutBuilder(builder: (context, constraints, deviceType) => Widget)
 
-// Spacing
-const ResponsiveSpacer(size: double)
-Spacers.vertical8 / vertical16 / vertical24
-Spacers.horizontal8 / horizontal16 / horizontal24
-Spacers.v(size) / Spacers.h(size)
+// Auto-scaling text
+ResponsiveText(text, baseFontSize: double, {minFontSize, maxFontSize, useDesignScale, style, maxLines, overflow})
 
-// Safety
-SafeMobileLayout(
-  padding: EdgeInsets?,
-  maintainBottomViewPadding: bool,
-  enableScroll: bool,
-  child: Widget,
-)
+// Auto-column grid
+ResponsiveGrid(children: [], mobileColumns: int, {tabletColumns, desktopColumns, widescreenColumns, spacing, childAspectRatio})
+
+// Responsive padding
+ResponsivePadding(child: Widget, {mobilePadding, tabletPadding, desktopPadding})
+ResponsivePadding.adaptive(child: Widget)
+
+// Conditional visibility
+ResponsiveVisibility(child: Widget, {visibleOn, hiddenOn, replacement})
+ResponsiveVisibility.mobileOnly(child: Widget)
+ResponsiveVisibility.desktopOnly(child: Widget)
+ResponsiveVisibility.hideOnMobile(child: Widget)
+ResponsiveVisibility.hideOnDesktop(child: Widget)
+
+// Safe layout wrapper
+SafeResponsiveLayout(child: Widget, {padding, enableScroll, maxWidth, maxHeight, physics})
+
+// Auto-direction spacer
+const ResponsiveSpacer({size: 16})
+Spacers.s4 / s8 / s12 / s16 / s24 / s32 / s48
+Spacers.of(size)
+
+// Widget constraints
+widget.constrained(maxWidth: 800)
+widget.constrainedBoth(maxWidth: 800, maxHeight: 600)
+widget.adaptiveConstrained(context)
 ```
 
 </details>
 
 <details>
-<summary><b>Functions</b></summary>
+<summary><b>Configuration</b></summary>
 
 ```dart
-// Responsive values
-T responsiveValue<T>(
-  BuildContext context,
-  {required T mobile, T? tablet, T? desktop, T? widescreen}
+// InheritedWidget wrapper (optional)
+AdaptiFlow(data: AdaptiFlowData(...), child: MaterialApp(...))
+
+// Configuration class (all fields have defaults)
+AdaptiFlowData(
+  mobileBreakpoint: 600,        desktopBreakpoint: 1200,
+  widescreenBreakpoint: 1920,   designSize: Size(375, 812),
+  mobileScaleFactor: 1.0,      tabletScaleFactor: 1.2,      desktopScaleFactor: 1.5,
+  mobileFontScale: 1.0,        tabletFontScale: 1.15,       desktopFontScale: 1.3,
+  mobilePadding: 16,            tabletPadding: 24,            desktopPadding: 32,
+  mobileMargin: 12,             tabletMargin: 16,             desktopMargin: 24,
+  mobileSpacing: 8,             tabletSpacing: 12,            desktopSpacing: 16,
+  tabletMaxWidth: 900,          desktopMaxWidth: 1200,
 )
 
-// Orientation values
-T orientationValue<T>(
-  BuildContext context,
-  {required T portrait, required T landscape}
-)
+// Access config
+AdaptiFlow.of(context)        // With dependency (rebuilds on change)
+AdaptiFlow.maybeOf(context)   // Without dependency (one-time read)
+
+// Functions
+T responsiveValue<T>(context, {required T mobile, T? tablet, T? desktop, T? widescreen})
+T orientationValue<T>(context, {required T portrait, required T landscape})
 
 // Class-based
-ResponsiveValue<T>(
-  {required T mobile, T? tablet, T? desktop, T? widescreen}
-).getValue(context)
+ResponsiveValue<T>(mobile: T, {tablet, desktop, widescreen}).of(context)
+
+// Device type
+DeviceType resolveDeviceType(width, {mobileBreakpoint, desktopBreakpoint, widescreenBreakpoint})
 ```
 
 </details>
 
-<details>
-<summary><b>Extensions</b></summary>
+---
+
+## Best Practices
 
 ```dart
-// Widget constraints
-widget.constrained(maxWidth: double)
-widget.constrainedBoth(maxWidth: double, maxHeight: double)
-widget.adaptiveConstrained(BuildContext)
+// DO
+Container(width: context.wp(80))                // Percentage sizing
+EdgeInsets.all(context.adaptivePadding)          // Adaptive values
+SafeResponsiveLayout(child: content)             // Safe wrapper
+const ResponsiveText('Title', baseFontSize: 20)  // Auto-scaling text
+ResponsiveVisibility.hideOnMobile(child: panel)  // Conditional display
+Spacers.s16                                      // Const spacers
+
+// DON'T
+Container(width: 200)                            // Fixed pixels
+MediaQuery.of(context).size.width                // Direct MediaQuery
+Column(children: [...])                          // No SafeArea
 ```
 
-</details>
+---
+
+## Performance
+
+AdaptiFlow uses `MediaQuery.sizeOf`, `paddingOf`, `orientationOf`, and `viewInsetsOf` instead of `MediaQuery.of` — this means your widgets only rebuild when the specific property they depend on changes, not when any MediaQuery property changes.
+
+```dart
+const ResponsiveSpacer()  // const constructors where possible
+Spacers.s16               // Predefined const spacers
+```
 
 ---
 
-## 🚀 Performance Tips
+## Contributing
 
-1. **Use const constructors:**
-   ```dart
-   const ResponsiveSpacer()  // ✅
-   ```
+Contributions are welcome! Please:
 
-2. **Cache responsive values:**
-   ```dart
-   final width = context.screenWidth;  // Cache it
-   ```
-
-3. **Use predefined spacers:**
-   ```dart
-   Spacers.vertical16  // ✅ Const
-   ```
-
-4. **Minimize ResponsiveLayout nesting:**
-   ```dart
-   // ✅ One at top level
-   ResponsiveLayout(mobile: Page())
-   ```
+1. Fork the repository
+2. Create your feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
 
 ---
 
-## 🤝 Contributing
-
-Contributions are welcome! Here's how:
-
-1. **Fork the repository**
-2. **Create your feature branch:** `git checkout -b feature/AmazingFeature`
-3. **Commit your changes:** `git commit -m 'Add AmazingFeature'`
-4. **Push to the branch:** `git push origin feature/AmazingFeature`
-5. **Open a Pull Request**
-
----
-
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 🙏 Acknowledgments
-
-Built with ❤️ using Flutter & Dart
-
-Special thanks to the Flutter community for inspiration and feedback.
-
----
-
-
----
-
-## 🌟 Show Your Support
-
-If this helped you, please:
-- ⭐ Star this repository
-- 📝 Write a blog post
-
----
-
 <div align="center">
 
-**Made with ❤️ for the Flutter Community**
+**Made with Flutter & Dart**
 
-[⬆️ Back to Top](#-flutter-responsive-system)
+[Back to Top](#adaptiflow)
 
 </div>
