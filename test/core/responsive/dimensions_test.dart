@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:responsive_ui/core/responsive/responsive.dart';
+import 'package:adapti_flow/core/responsive/responsive.dart';
 
 /// Helper to build a test widget with a specific screen size.
 Widget buildTestWidget({

@@ -1,13 +1,14 @@
 <div align="center">
 
-# 📱 Flutter Responsive System
+# 📱 AdaptiFlow
 
-**A lightweight, production-ready responsive design system for Flutter that makes your apps look perfect on every device**
+**A comprehensive zero-dependency Flutter responsive design system with adaptive layouts, design-proportional scaling, and fully customizable breakpoints**
 
+[![pub package](https://img.shields.io/pub/v/adapti_flow.svg)](https://pub.dev/packages/adapti_flow)
 ![Flutter](https://img.shields.io/badge/Flutter-02569B?style=flat-square&logo=flutter&logoColor=white)
 ![Dart](https://img.shields.io/badge/Dart-0175C2?style=flat-square&logo=dart&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)
-![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS%20%7C%20Web%20%7C%20Desktop-blue?style=flat-square)
+![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS%20%7C%20Web%20%7C%20macOS%20%7C%20Windows%20%7C%20Linux-blue?style=flat-square)
 
 [Features](#-features) • [Installation](#-installation) • [Quick Start](#-quick-start) • [Examples](#-real-world-examples) • [Documentation](#-api-reference)
 
@@ -101,27 +102,26 @@ Column(children: [
 
 ## 📦 Installation
 
-### Step 1: Copy Files
+### Step 1: Add to pubspec.yaml
 
-```
-lib/
-└── core/
-    └── responsive/
-        ├── breakpoints.dart
-        ├── dimensions.dart
-        ├── responsive_layout.dart
-        ├── responsive_spacer.dart
-        ├── responsive_value.dart
-        └── responsive.dart
+```yaml
+dependencies:
+  adapti_flow: ^1.0.0
 ```
 
-### Step 2: Import
+### Step 2: Install
+
+```bash
+flutter pub get
+```
+
+### Step 3: Import
 
 ```dart
-import 'package:your_app/core/responsive/responsive.dart';
+import 'package:adapti_flow/adapti_flow.dart';
 ```
 
-**No external dependencies!** Pure Flutter.
+**Zero external dependencies!** Pure Flutter.
 
 ---
 
@@ -129,7 +129,7 @@ import 'package:your_app/core/responsive/responsive.dart';
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:your_app/core/responsive/responsive.dart';
+import 'package:adapti_flow/adapti_flow.dart';
 
 class HomePage extends StatelessWidget {
   @override

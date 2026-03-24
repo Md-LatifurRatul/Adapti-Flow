@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:responsive_ui/core/responsive/responsive.dart';
+import 'package:adapti_flow/core/responsive/responsive.dart';
 
 Widget buildWithWidth(double width, Widget child, {double height = 800}) {
   return MediaQuery(
@@ -98,7 +98,7 @@ void main() {
         height: 800,
       ));
       final text = tester.widget<Text>(find.byType(Text));
-      final expectedSize = 16 * (800 / 812); // min ratio is height
+      const expectedSize = 16 * (800 / 812); // min ratio is height
       expect(text.style!.fontSize!, closeTo(expectedSize, 0.01));
     });
   });

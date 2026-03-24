@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'dimensions.dart';
+import 'package:adapti_flow/core/responsive/dimensions.dart';
 
 /// Returns a value based on the current device type (screen width).
 ///

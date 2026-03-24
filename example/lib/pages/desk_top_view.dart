@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_ui/core/responsive/responsive.dart';
+import 'package:adapti_flow/core/responsive/responsive.dart';
 
 class DesktopView extends StatelessWidget {
   const DesktopView({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_ui/core/responsive/device_type.dart';
-import 'package:responsive_ui/core/responsive/dimensions.dart';
+import 'package:adapti_flow/core/responsive/device_type.dart';
+import 'package:adapti_flow/core/responsive/dimensions.dart';
 
 /// A widget that conditionally shows or hides its child based on [DeviceType].
 ///

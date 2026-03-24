@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:responsive_ui/core/responsive/responsive.dart';
+import 'package:adapti_flow/core/responsive/responsive.dart';
 
 void main() {
   group('SafeResponsiveLayout', () {
@@ -116,23 +116,6 @@ void main() {
       );
       final safeArea = tester.widget<SafeArea>(find.byType(SafeArea));
       expect(safeArea.maintainBottomViewPadding, isFalse);
-    });
-  });
-
-  group('SafeMobileLayout backward compatibility', () {
-    testWidgets('SafeMobileLayout typedef works', (tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(
-            // ignore: deprecated_member_use_from_same_package
-            body: SafeMobileLayout(
-              child: Text('backward compat'),
-            ),
-          ),
-        ),
-      );
-      expect(find.text('backward compat'), findsOneWidget);
-      expect(find.byType(SafeArea), findsOneWidget);
     });
   });
 }

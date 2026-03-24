@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_ui/core/responsive/responsive.dart';
-import 'package:responsive_ui/presentation/pages/my_custom_page.dart';
+import 'package:adapti_flow/core/responsive/responsive.dart';
+import 'package:adapti_flow_example/pages/my_custom_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

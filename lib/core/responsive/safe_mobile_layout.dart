@@ -92,7 +92,3 @@ class SafeResponsiveLayout extends StatelessWidget {
     );
   }
 }
-
-/// Backward-compatible alias for [SafeResponsiveLayout].
-@Deprecated('Use SafeResponsiveLayout instead')
-typedef SafeMobileLayout = SafeResponsiveLayout;

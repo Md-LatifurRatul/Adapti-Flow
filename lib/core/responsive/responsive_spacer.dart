@@ -99,43 +99,4 @@ class Spacers {
 
   /// Create a spacer of custom [size] (direction auto-detected).
   static Widget of(double size) => ResponsiveSpacer(size: size);
-
-  // --- Backward-compatible aliases (deprecated) ---
-  // These exist because the old API had separate vertical*/horizontal* names,
-  // but they are functionally identical since direction is auto-detected.
-
-  @Deprecated('Use Spacers.s4 instead. Direction is auto-detected from parent.')
-  static const vertical4 = ResponsiveSpacer(size: 4);
-  @Deprecated('Use Spacers.s8 instead. Direction is auto-detected from parent.')
-  static const vertical8 = ResponsiveSpacer(size: 8);
-  @Deprecated('Use Spacers.s12 instead. Direction is auto-detected from parent.')
-  static const vertical12 = ResponsiveSpacer(size: 12);
-  @Deprecated('Use Spacers.s16 instead. Direction is auto-detected from parent.')
-  static const vertical16 = ResponsiveSpacer(size: 16);
-  @Deprecated('Use Spacers.s24 instead. Direction is auto-detected from parent.')
-  static const vertical24 = ResponsiveSpacer(size: 24);
-  @Deprecated('Use Spacers.s32 instead. Direction is auto-detected from parent.')
-  static const vertical32 = ResponsiveSpacer(size: 32);
-  @Deprecated('Use Spacers.s48 instead. Direction is auto-detected from parent.')
-  static const vertical48 = ResponsiveSpacer(size: 48);
-
-  @Deprecated('Use Spacers.s4 instead. Direction is auto-detected from parent.')
-  static const horizontal4 = ResponsiveSpacer(size: 4);
-  @Deprecated('Use Spacers.s8 instead. Direction is auto-detected from parent.')
-  static const horizontal8 = ResponsiveSpacer(size: 8);
-  @Deprecated('Use Spacers.s12 instead. Direction is auto-detected from parent.')
-  static const horizontal12 = ResponsiveSpacer(size: 12);
-  @Deprecated('Use Spacers.s16 instead. Direction is auto-detected from parent.')
-  static const horizontal16 = ResponsiveSpacer(size: 16);
-  @Deprecated('Use Spacers.s24 instead. Direction is auto-detected from parent.')
-  static const horizontal24 = ResponsiveSpacer(size: 24);
-  @Deprecated('Use Spacers.s32 instead. Direction is auto-detected from parent.')
-  static const horizontal32 = ResponsiveSpacer(size: 32);
-  @Deprecated('Use Spacers.s48 instead. Direction is auto-detected from parent.')
-  static const horizontal48 = ResponsiveSpacer(size: 48);
-
-  @Deprecated('Use Spacers.of(size) instead. Direction is auto-detected.')
-  static Widget v(double size) => ResponsiveSpacer(size: size);
-  @Deprecated('Use Spacers.of(size) instead. Direction is auto-detected.')
-  static Widget h(double size) => ResponsiveSpacer(size: size);
 }

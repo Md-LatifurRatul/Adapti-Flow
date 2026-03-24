@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_ui/core/responsive/dimensions.dart';
-import 'package:responsive_ui/core/responsive/responsive_value.dart';
+import 'package:adapti_flow/core/responsive/dimensions.dart';
+import 'package:adapti_flow/core/responsive/responsive_value.dart';
 
 /// A widget that applies responsive padding based on device type.
 ///

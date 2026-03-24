@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_ui/core/responsive/adapti_flow_config.dart';
-import 'package:responsive_ui/core/responsive/device_type.dart';
+import 'package:adapti_flow/core/responsive/adapti_flow_config.dart';
+import 'package:adapti_flow/core/responsive/device_type.dart';
 
 /// A widget that switches between layouts based on available width constraints.
 ///
@@ -109,21 +109,5 @@ class ResponsiveLayoutBuilder extends StatelessWidget {
         return builder(context, constraints, type);
       },
     );
-  }
-}
-
-/// Simple responsive builder that provides current constraints.
-///
-/// Prefer [ResponsiveLayoutBuilder] which also provides [DeviceType].
-@Deprecated('Use ResponsiveLayoutBuilder instead for DeviceType-aware building')
-class ResponsiveBuilder extends StatelessWidget {
-  final Widget Function(BuildContext context, BoxConstraints constraints)
-      builder;
-
-  const ResponsiveBuilder({super.key, required this.builder});
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(builder: builder);
   }
 }

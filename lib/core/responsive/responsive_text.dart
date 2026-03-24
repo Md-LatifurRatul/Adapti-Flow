@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_ui/core/responsive/dimensions.dart';
+import 'package:adapti_flow/core/responsive/dimensions.dart';
 
 /// A text widget with automatic responsive font sizing.
 ///

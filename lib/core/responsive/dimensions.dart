@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_ui/core/responsive/adapti_flow_config.dart';
-import 'package:responsive_ui/core/responsive/device_type.dart';
+import 'package:adapti_flow/core/responsive/adapti_flow_config.dart';
+import 'package:adapti_flow/core/responsive/device_type.dart';
 
 /// Extension on [BuildContext] for responsive dimension calculations.
 ///

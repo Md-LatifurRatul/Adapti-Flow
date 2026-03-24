@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_ui/core/responsive/responsive_value.dart';
+import 'package:adapti_flow/core/responsive/responsive_value.dart';
 
 /// A grid widget that auto-adjusts column count based on device type.
 ///
