@@ -1,0 +1,17 @@
+name: adapti_flow_example
+description: Example app demonstrating the adapti_flow responsive design system.
+
+publish_to: 'none'
+
+environment:
+  sdk: ^3.10.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+  adapti_flow:
+    path: ../
+  cupertino_icons: ^1.0.8
+
+flutter:
+  uses-material-design: true
