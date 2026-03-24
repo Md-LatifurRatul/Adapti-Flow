@@ -9,14 +9,12 @@ class MyCustomPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 1. Use ResponsiveLayout to pick the correct view based on screen size
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'My Custom UI',
-          style: TextStyle(
-            fontSize: context.fontSize(20),
-          ), // Font size scales automatically
+        title: ResponsiveText(
+          'AdaptiFlow Demo',
+          baseFontSize: 20,
+          style: const TextStyle(fontWeight: FontWeight.w600),
         ),
       ),
       body: ResponsiveLayout(

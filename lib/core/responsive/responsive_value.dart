@@ -2,7 +2,20 @@ import 'package:flutter/material.dart';
 
 import 'dimensions.dart';
 
-/// Returns a specific value based on the current screen size.
+/// Returns a value based on the current device type (screen width).
+///
+/// Uses [ResponsiveDimensions] extension which reads breakpoints from
+/// [AdaptiFlowData] configuration.
+///
+/// ```dart
+/// final columns = responsiveValue(
+///   context,
+///   mobile: 1,
+///   tablet: 2,
+///   desktop: 3,
+///   widescreen: 4,
+/// );
+/// ```
 T responsiveValue<T>(
   BuildContext context, {
   required T mobile,
@@ -16,7 +29,20 @@ T responsiveValue<T>(
   return mobile;
 }
 
-/// Class-based responsive value for reusability
+/// A reusable class-based responsive value.
+///
+/// Useful when the same responsive value is needed in multiple places.
+///
+/// ```dart
+/// final gridColumns = ResponsiveValue<int>(
+///   mobile: 2,
+///   tablet: 3,
+///   desktop: 4,
+/// );
+///
+/// // Use anywhere:
+/// GridView.count(crossAxisCount: gridColumns.of(context))
+/// ```
 class ResponsiveValue<T> {
   final T mobile;
   final T? tablet;
@@ -30,7 +56,10 @@ class ResponsiveValue<T> {
     this.widescreen,
   });
 
-  /// Get value based on current context
+  /// Get value based on current context. Shorthand for [getValue].
+  T of(BuildContext context) => getValue(context);
+
+  /// Get value based on current context.
   T getValue(BuildContext context) {
     return responsiveValue(
       context,
@@ -42,7 +71,15 @@ class ResponsiveValue<T> {
   }
 }
 
-/// Orientation-aware responsive value
+/// Returns a value based on the current device orientation.
+///
+/// ```dart
+/// final padding = orientationValue(
+///   context,
+///   portrait: 16.0,
+///   landscape: 24.0,
+/// );
+/// ```
 T orientationValue<T>(
   BuildContext context, {
   required T portrait,

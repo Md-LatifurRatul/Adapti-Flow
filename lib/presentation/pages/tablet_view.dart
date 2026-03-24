@@ -8,7 +8,7 @@ class TabletView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        padding: .all(context.adaptivePadding),
+        padding: EdgeInsets.all(context.adaptivePadding),
         width: context.wp(90),
         child: Column(
           children: [
@@ -16,17 +16,17 @@ class TabletView extends StatelessWidget {
               'Tablet View',
               style: TextStyle(fontSize: context.fontSize(20)),
             ),
-            Spacers.vertical16,
+            Spacers.s16,
             Row(
               children: [
                 Expanded(child: Container(height: 100, color: Colors.orange)),
-                Spacers.horizontal12,
+                Spacers.s12,
                 Expanded(child: Container(height: 100, color: Colors.purple)),
               ],
             ),
           ],
         ),
-      ).constrained(maxWidth: 900),
+      ).adaptiveConstrained(context),
     );
   }
 }

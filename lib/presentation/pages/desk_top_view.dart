@@ -6,16 +6,13 @@ class DesktopView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 3. Use .constrained to prevent stretching on huge monitors
     return Padding(
-      padding: EdgeInsets.all(
-        context.adaptivePadding,
-      ), // Adaptive padding (32px)
+      padding: EdgeInsets.all(context.adaptivePadding),
       child: Row(
         children: [
           Expanded(
             child: Container(
-              height: context.hp(50), // 50% of screen height
+              height: context.hp(50),
               color: Colors.green.shade100,
               child: Center(
                 child: Text(
@@ -25,7 +22,7 @@ class DesktopView extends StatelessWidget {
               ),
             ),
           ),
-          Spacers.horizontal24, // Consistent 24px horizontal space
+          Spacers.s24,
           Expanded(
             child: Container(
               height: context.hp(50),
@@ -38,7 +35,7 @@ class DesktopView extends StatelessWidget {
             ),
           ),
         ],
-      ).constrained(maxWidth: 1400), // Max width of 1400px
+      ).constrained(maxWidth: 1400),
     );
   }
 }
