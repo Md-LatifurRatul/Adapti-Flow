@@ -1,0 +1,11 @@
+# Platform runner directories (app scaffolding, not needed for package)
+android/
+ios/
+linux/
+macos/
+web/
+windows/
+
+# Build artifacts
+build/
+.dart_tool/
